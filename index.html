@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=, initial-scale=1.0">
+  <title>OpenWeather</title>
+  <link rel="stylesheet" href="css/style4.css">
+  <link rel="icon" href="image/icon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Ubuntu&display=swap" rel="stylesheet">
+  <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    
+<script>
+  function Value(){
+    var form = document.forms["myForm"]
+      var citi = form["city"].value
+      Weather(citi)
+  }
+  function Weather(city){
+    fetch("https://api.openweathermap.org/data/2.5/weather?q="+ city +"&appid=3d5747a9089314617a32ebae9a5cf3dd")
+  .then((Response => Response.json()))
+  .then((data) => this.display(data))
+    
+  }
+ function display(data){
+   console.log(data)
+   var {name}=data
+   var {description}=data.weather[0]
+   var {humidity,temp}=data.main
+   var {speed}=data.wind
+   console.log(name,description,humidity,temp,speed)
+   document.getElementById("text").innerHTML=name
+   document.getElementById("temp").innerHTML=Math.round(temp - 273)+"°C"
+   document.getElementById("desc").innerHTML=description
+   document.getElementById("humid").innerHTML="Humidity:" + humidity + "%"
+   document.getElementById("winds").innerHTML="Wind speed:" + speed +"Km/h"
+   datetime()
+   }
+
+   setInterval(datetime,1000);
+   function datetime(){
+   var detail= new Date();
+   console.log(detail)
+   var date = detail.getDate()
+   var  year= detail.getFullYear()
+   var month = detail.getMonth()
+   var hour = detail.getHours()
+   var min = detail.getMinutes()
+   var sec = detail.getSeconds()
+   console.log(date,year,month,hour,min,sec)
+   var monthname=["January","February","March","April","May","June","July","August","October","November","December"]
+   var mname=monthname[month]
+   var ap= hour >12 ? "PM" : "AM"
+   document.getElementById("date").innerHTML= date +" "+ mname + "," + year
+   document.getElementById("time").innerHTML= hour - 12 + ":" + correct(min) +":"+ correct(sec)+ " " + ap
+  }
+  function correct(num)
+  {
+    if (num>=0 && num<=9)
+    return "0"+num
+    else 
+    return num
+  }
+
+</script>
+  <div class="box" id="box">
+    <div class="smallbox">
+      <h3 id="date"></h3>
+      <h3 id="time"></h3>
+    </div>
+    <form class="form-control" name="myForm" onsubmit="event.preventDefault(); return Value();" style="text-align: center;">
+      <input type="search" name="city" id="search-type" placeholder="  Enter the city" required>
+      <button type="submit" name="Button" class="btn"><i class="fas fa-search fa-1x" style="margin: 4px;"></i></button>
+      <h1 class="heading" style="padding-top:12px;"><em>Weather in <span name="text" id="text">Patna</span></em></h1>
+      <h1 id="temp">16°C</h1>
+      <h3 id="desc" style="padding-top: 4px;">Cloudy</h3>
+      <h3 id="humid">Humidity:60%</h3>
+      <h3 id="winds">Wind speed:6.2km/h</h3>
+    </form>
+  </div>
+
+</body>
