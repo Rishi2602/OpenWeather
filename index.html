@@ -54,8 +54,9 @@
    var monthname=["January","February","March","April","May","June","July","August","October","November","December"]
    var mname=monthname[month]
    var ap= hour >12 ? "PM" : "AM"
+   var corrh= hour>12? hour-12 : hour
    document.getElementById("date").innerHTML= date +" "+ mname + "," + year
-   document.getElementById("time").innerHTML= hour - 12 + ":" + correct(min) +":"+ correct(sec)+ " " + ap
+   document.getElementById("time").innerHTML= corrh + ":" + correct(min) +":"+ correct(sec)+ " " + ap
   }
   function correct(num)
   {
