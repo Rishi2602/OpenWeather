@@ -20,7 +20,7 @@
       Weather(citi)
   }
   function Weather(city){
-    fetch("https://api.openweathermap.org/data/2.5/weather?q="+ city +"&appid=3d5747a9089314617a32ebae9a5cf3dd")
+    fetch("https://api.openweathermap.org/data/2.5/weather?q="+ city +"&appid=4fed498c10157d0e8c27e1eaa31cd49e")
   .then((Response => Response.json()))
   .then((data) => this.display(data))
     
@@ -54,9 +54,9 @@
    var monthname=["January","February","March","April","May","June","July","August","October","November","December"]
    var mname=monthname[month]
    var ap= hour >12 ? "PM" : "AM"
-   var corrh= hour>12? hour-12 : hour
+   var correcth= hour>12? hour-12 : hour
    document.getElementById("date").innerHTML= date +" "+ mname + "," + year
-   document.getElementById("time").innerHTML= corrh + ":" + correct(min) +":"+ correct(sec)+ " " + ap
+   document.getElementById("time").innerHTML= correcth + ":" + correct(min) +":"+ correct(sec)+ " " + ap
   }
   function correct(num)
   {
